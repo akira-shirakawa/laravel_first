@@ -23,7 +23,7 @@
             @csrf
         </form>
         <table class="table is-fullwidth ">
-        <tr><td>id</td><td>comment</td></tr>
+        <tr><td>id</td><td>comment</td><td></td><td></td></tr>
         @foreach ($comments as $comment)
         <tr>
             <td>           
