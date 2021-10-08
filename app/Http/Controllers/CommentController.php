@@ -24,9 +24,11 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        $comment = Comment::find($id);
+       
+        return view('edit',['comment'=>$comment]);
     }
 
     /**
@@ -59,30 +61,41 @@ class CommentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Comment $comment)
-    {
-        //
+    {   dd($comment->comment);
+        $comments = Comment::find($comment->id);
+       
+        $comments->comment = $comment->comment;
+        $comments->save();
+        return redirect("/comment/update/$comment->id");
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Comment  $comment
+     
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Comment $comment)
+    public function update(Request $request)
     {
-        //
+        $comments = Comment::find($request->id);
+       
+        $comments->comment = $request->comment;
+        $comments->save();
+        return redirect("/");
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Comment  $comment
+     * @param   \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Comment $comment)
+    public function destroy(Request $request)
     {
-        //
+        $comments = Comment::find($request->id);
+        $comments->delete();
+        return back();
+
     }
 }

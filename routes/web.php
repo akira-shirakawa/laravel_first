@@ -13,3 +13,6 @@
 
 Route::get('/','CommentController@index');
 Route::post('/comment','CommentController@store');
+Route::get('/comment/update/{id}','CommentController@create');
+Route::post('/comment/update','CommentController@update');
+route::post('/comment/delete','CommentController@destroy');

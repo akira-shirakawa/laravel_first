@@ -10,10 +10,9 @@
     <title>Document</title>
 </head> 
 <body>
-<nav class="navbar" role="navigation" aria-label="main navigation">
-    <a class="navbar-item">
-       
-    </a>
+<nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+    
+   
 </nav>
 <div class="columns">
     <div class="column"></div>
@@ -32,6 +31,16 @@
             </td>
             <td>           
                 {{$comment->comment}}        
+            </td>
+            <td>
+                <a href="/comment/update/{{$comment->id}}" class="button is-info">編集</a>
+            </td>
+            <td>
+                <form action="/comment/delete" method="post">
+                @csrf
+                    <input type="hidden" name="id" value="{{$comment->id}}">
+                    <input class="button is-danger" type="submit" value="消去">
+                </form>
             </td>
         </tr>
         @endforeach
