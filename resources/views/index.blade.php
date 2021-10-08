@@ -19,7 +19,7 @@
     <div class="column">
         <form action="/comment" method="post">
             <input type="text" name="comment" class="input" required>
-            <input type="submit" class="button" value="送信">
+            <input type="submit" class="button" value="追加">
             @csrf
         </form>
         <table class="table is-fullwidth ">
@@ -48,6 +48,11 @@
     </div>
     <div class="column"></div>
 </div>
+<style>
+    .column{
+        margin-top:30px;
+    }
+</style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </body>
 </html>
