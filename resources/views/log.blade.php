@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://use.fontawesome.com/releases/v5.3.1/js/all.js" defer ></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css" />
-    
+    <link rel="stylesheet" href="{{asset('/css/main.css')}}">
+
     <title>Document</title>
 </head> 
 <body>
@@ -17,19 +18,31 @@
 <div class="columns">
     <div class="column"></div>
     <div class="column">
-        <form action="/comment/update" method="post">
-            
-            <input type="text" name="comment" class="input" value="{{$comment->comment}}" required>
-            <input type="hidden" value="{{$comment->id}}" name="id">
-            <input type="hidden" value="{{$comment->comment}}" name="comment_old" required>
-            <input type="submit" class="button" value="更新">
-            @csrf
-        </form>
-      
+        
+        <table class="table is-fullwidth ">
+        <tr><td>対象id</td><td>修正前</td><td>修正後</td><td>状態</td></tr>
+        @foreach ($log as $value)
+        <tr class="{{$value['statue']}}">
+            <td>           
+                {{$value['comment_id']}}        
+            </td>
+            <td>           
+                {{$value['comment_old']}}        
+            </td>
+            <td>           
+                {{$value['comment']}}        
+            </td>
+            <td>           
+                {{$value['statue']}}        
+            </td>
+           
+        </tr>
+        @endforeach
+        </table>
     </div>
     <div class="column"></div>
 </div>
-<link rel="stylesheet" href="{{asset('/css/main.css')}}">
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </body>
 </html>

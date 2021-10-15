@@ -16,3 +16,5 @@ Route::post('/comment','CommentController@store');
 Route::get('/comment/update/{id}','CommentController@create');
 Route::post('/comment/update','CommentController@update');
 route::post('/comment/delete','CommentController@destroy');
+route::get('/search','CommentController@search');
+route::get('/log','LogController@index');

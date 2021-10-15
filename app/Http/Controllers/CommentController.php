@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
+use App\Log;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -16,6 +17,7 @@ class CommentController extends Controller
     {
         $comments = Comment::all();
         return view('index',['comments'=>$comments]);
+       
         
     }
 
@@ -27,7 +29,6 @@ class CommentController extends Controller
     public function create($id)
     {
         $comment = Comment::find($id);
-       
         return view('edit',['comment'=>$comment]);
     }
 
@@ -40,6 +41,9 @@ class CommentController extends Controller
     public function store(Request $request)
     {
         Comment::create($request->all());
+        $comment_id = Comment::latest()->first()->id;
+       
+        Log::create(['comment'=>$request->comment,'statue'=>'created','comment_id'=>$comment_id]);
         return redirect('/');
     }
 
@@ -61,12 +65,8 @@ class CommentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Comment $comment)
-    {   dd($comment->comment);
-        $comments = Comment::find($comment->id);
-       
-        $comments->comment = $comment->comment;
-        $comments->save();
-        return redirect("/comment/update/$comment->id");
+    {   
+      
     }
 
     /**
@@ -82,6 +82,7 @@ class CommentController extends Controller
        
         $comments->comment = $request->comment;
         $comments->save();
+        Log::create(['comment'=>$request->comment,'comment_old'=>$request->comment_old,'statue'=>'updated','comment_id'=>$request->id]);
         return redirect("/");
     }
 
@@ -95,7 +96,20 @@ class CommentController extends Controller
     {
         $comments = Comment::find($request->id);
         $comments->delete();
-        return back();
+        Log::create(['comment_old'=>$request->comment_old,'statue'=>'deleted','comment_id'=>$request->id]);
+        return redirect('/');
 
+    }
+
+    public function search(Request $request)
+    {
+        $value = $request->input('comment');
+        if(isset($value)){
+            $comment = Comment::where('comment','like',"%".$value."%")->get();
+        }else{
+            $comment = Comment::all();
+        }
+        
+        return view('search',['comment'=>$comment]);
     }
 }
