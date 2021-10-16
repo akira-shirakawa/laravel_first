@@ -1,26 +1,24 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://use.fontawesome.com/releases/v5.3.1/js/all.js" defer ></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css" />
-    <link rel="stylesheet" href="css/main.css">
-    <title>Document</title>
-</head> 
-<body>
-<nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+@extends('layouts.app')
+@section('navbar')
     <a href="/" class="navbar-item"><i class="fas fa-home"></i></a>
-   
-</nav>
-<div class="columns">
-    <div class="column"></div>
-    <div class="column">
+@endsection
+@section('content') 
+    <div class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <div class="box is-text-centered">
+                <span is-3>本当に消去しますか？</span>
+                <button class="button is-danger yes" >Yes</button>
+                <button class="button no" >No </button>
+               
+            </div>
+        </div>
+        <button class="modal-close is-large" aria-label="close"></button>
+    </div>   
         <form action="/search" method="get">
-            <input type="text" name="comment" class="input" required>
+            <input type="text" name="comment" class="input" >
             <input type="submit" class="button" value="コメントを検索">
-            
+         
         </form>
         <table class="table is-fullwidth ">
         <tr><td>id</td><td>comment</td><td></td><td></td></tr>
@@ -36,21 +34,16 @@
                 <a href="/comment/update/{{$value['id']}}" class="button is-info">編集</a>
             </td>
             <td>
-                <form action="/comment/delete" method="post">
-                @csrf
-                    <input type="hidden" name="id" value="{{$value['id']}}">
-                    <input class="button is-danger" type="submit" value="消去">
+            <button  class="button is-danger js-modal-target" id="{{$value->id}}">消去</button>
+                <form action="/comment/delete" method="post"class="is-hidden" id="form{{$value->id}}">
                     
-                    <input type="hidden" name="comment_old" value="{{$value->comment}}">
+                    <input type="hidden" name="id" value="{{$value->id}}">
+                    <input type="hidden" name="comment_old" value="{{$value->comment}}  ">
+                    
+                    @csrf
                 </form>
             </td>
         </tr>
         @endforeach
         </table>
-    </div>
-    <div class="column"></div>
-</div>
-<link rel="stylesheet" href="{{asset('/css/main.css')}}">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-</body>
-</html>
+@endsection  

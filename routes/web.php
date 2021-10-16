@@ -18,3 +18,4 @@ Route::post('/comment/update','CommentController@update');
 route::post('/comment/delete','CommentController@destroy');
 route::get('/search','CommentController@search');
 route::get('/log','LogController@index');
+Auth::routes();
