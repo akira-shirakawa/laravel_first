@@ -8,6 +8,9 @@
 @section('content')
   
 <div class="box">
+@foreach($errors->all() as $error)
+  <li>{{ $error }}</li>
+@endforeach
   <form method="POST" action="{{ route('register') }}">
       @csrf
       
