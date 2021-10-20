@@ -26,13 +26,14 @@
         <form action="/comment" method="post">
             <input type="text" name="comment" class="input" required>
             <input type="submit" class="button" value="追加">
+            <input type="hidden" name="user_id" value="{{auth::user()->id}}">
             @csrf
         </form>
         
     </div>
 
     <table class="table is-fullwidth ">
-        <tr><td>id</td><td>comment</td><td></td><td></td></tr>
+        <tr><td>id</td><td>comment</td><td>作成者</td><td></td><td></td></tr>
         @foreach ($comments as $comment)
         <tr>
             <td>           
@@ -41,6 +42,8 @@
             <td>           
                 {{$comment->comment}}        
             </td>
+            <td>{{$comment->user->name}}</td>
+           
             <td>
                 <a href="/comment/update/{{$comment->id}}" class="button is-info">編集</a>
             </td>
@@ -54,6 +57,7 @@
                     @csrf
                 </form>
             </td>
+          
         </tr>
         @endforeach
     </table>

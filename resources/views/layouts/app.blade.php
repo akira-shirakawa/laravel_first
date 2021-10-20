@@ -31,7 +31,7 @@
 </nav>
 <div class="columns">
     <div class="column"></div>
-    <div class="column">
+    <div class="column is-half">
         @yield('content')
     </div>
     <div class="column"></div>

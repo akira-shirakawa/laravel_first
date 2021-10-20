@@ -109,11 +109,15 @@ class CommentController extends Controller
     public function search(Request $request)
     {
         $value = $request->input('comment');
-        if(isset($value)){
-            $comment = Comment::where('comment','like',"%".$value."%")->get();
-        }else{
-            $comment = Comment::all();
-        }
+        
+        
+        $comment = Comment::where('comment','like',"%".$value."%")
+        ->where('created_at','>',$request->created_at_from ?? '2000-01-01' )
+        ->where('created_at','<',$request->created_at_to ?? '2999-12-30')
+        ->where('updated_at','>',$request->updated_at_from ?? '2000-01-01')
+        ->where('updated_at','<',$request->updated_at_to ?? '2999-12-30')
+        ->get();
+       
         
         return view('search',['comment'=>$comment]);
     }
