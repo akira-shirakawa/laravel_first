@@ -17,13 +17,13 @@
     </div>   
         <form action="/search" method="get">
         <p>作成日</p>
-            <input type="date" name="created_at_from">~
-            <input type="date" name="created_at_to">
+            <input type="date" name="created_at_from" value="{{old('created_at_from')}}">~
+            <input type="date" name="created_at_to" value="{{old('created_at_to')}}">
             <p>更新日</p>
-            <input type="date" name="updated_at_from">~
-            <input type="date" name="updated_at_to">
+            <input type="date" name="updated_at_from" value="{{old('updated_at_from')}}">~
+            <input type="date" name="updated_at_to" value="{{old('updated_at_to')}}">
             <p>コメント</p>
-            <input type="text" name="comment" class="input" >
+            <input type="text" name="comment" class="input" value="{{old('comment')}}">
             <input type="submit" class="button" value="検索">
          
         </form>
