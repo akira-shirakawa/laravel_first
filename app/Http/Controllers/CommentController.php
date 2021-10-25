@@ -117,7 +117,11 @@ class CommentController extends Controller
         ->where('updated_at','>',$request->updated_at_from ?? '2000-01-01')
         ->where('updated_at','<',$request->updated_at_to ?? '2999-12-30')
         ->get();
-       
+       \Session::flash('created_at_from',$request->created_at_from);
+       \Session::flash('created_at_to',$request->created_at_to);
+       \Session::flash('updated_at_from',$request->updated_at_from);
+       \Session::flash('updated_at_to',$request->updated_at_to);
+       \Session::flash('comment',$request->comment);
         
         return view('search',['comment'=>$comment]);
     }
